@@ -6,3 +6,13 @@ body {
   padding: 0;
   margin: 0;
 }
+
+@layer components {
+  folder {
+    @apply rounded-xl border-2 border-slate-800 p-10;
+  }
+
+  folder:hover {
+    @apply scale-110 shadow-lg duration-300;
+  }
+}

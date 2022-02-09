@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restiloc - Creer dossier</title>
+  </head>
+  <body>
+    <nav
+      class="flex h-20 w-full flex-row items-center justify-around bg-slate-200 p-4"
+    >
+      <div>
+        <h2 class="text-4xl font-bold">Restiloc</h2>
+      </div>
+      <div>
+        <a href="./index.html" class="text-2xl font-bold">Accueil</a>
+      </div>
+    </nav>
+
+    <!-- Create client doc -->
+    <section class="flex flex-col">
+      <div>
+        <form action="../php/create-folder.php" method="post">
+          <label for="fname">Prenom</label>
+          <input type="text" name="fname" id="fname" />
+          <label for="lname">Nom</label>
+          <input type="text" name="lname" id="lname" />
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
