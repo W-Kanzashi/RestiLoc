@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restiloc - Creer dossier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <nav
@@ -19,8 +20,8 @@
     </nav>
 
     <!-- Create client doc -->
-    <section class="flex flex-col">
-      <div>
+    <section class="flex h-[40rem] w-full flex-col">
+      <div class="flex flex-row items-center justify-between">
         <form action="../php/create-folder.php" method="post">
           <label for="fname">Prenom</label>
           <input type="text" name="fname" id="fname" />
