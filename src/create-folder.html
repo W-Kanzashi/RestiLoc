@@ -20,13 +20,76 @@
     </nav>
 
     <!-- Create client doc -->
-    <section class="flex h-[40rem] w-full flex-col">
-      <div class="flex flex-row items-center justify-between">
-        <form action="../php/create-folder.php" method="post">
-          <label for="fname">Prenom</label>
-          <input type="text" name="fname" id="fname" />
-          <label for="lname">Nom</label>
-          <input type="text" name="lname" id="lname" />
+    <section class="mt-20 flex max-w-lg flex-col">
+      <div class="flex flex-row border-2 p-5">
+        <form
+          action="../php/create-folder.php"
+          method="post"
+          class="grid w-full grid-cols-2"
+        >
+          <label for="fname" class="">
+            <span>Prénom</span>
+            <input
+              type="text"
+              name="fname"
+              id="fname"
+              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            />
+          </label>
+          <label for="lname">
+            <span>Nom</span>
+            <input
+              type="text"
+              name="lname"
+              id="lname"
+              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            />
+          </label>
+          <label for="address">
+            <span>Adresse</span>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            />
+          </label>
+          <label for="city">
+            <span>Ville</span>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            />
+          </label>
+          <label for="pphone">
+            <span>Téléphone</span>
+            <input
+              type="text"
+              name="pphone"
+              id="pphone"
+              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            />
+          </label>
+          <label for="hphone">
+            <span>Portable</span>
+            <input
+              type="number"
+              name="hphone"
+              id="hphone"
+              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            />
+          </label>
+          <label for="email">
+            <span>Email</span>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            />
+          </label>
         </form>
       </div>
     </section>
