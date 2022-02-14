@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-
 <?php
 
 import_once('./php/db_connect.php');
 
 ?>
-
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -102,6 +100,7 @@ import_once('./php/db_connect.php');
               name="email"
               id="email"
               placeholder="email@example.com"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             />
           </label>

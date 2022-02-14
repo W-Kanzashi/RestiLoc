@@ -7,6 +7,7 @@ function connectDB()
   try {
     $db = new PDO('mysql:host=10.0.128.127; dbname=restiloc; charset=utf8', $name, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connexion à la base de données réussie";
     return $db;
   } catch (Exception $e) {
     echo 'Erreur : ' . $e->getMessage();
