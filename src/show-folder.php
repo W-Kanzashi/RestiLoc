@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Restiloc - Creer dossier</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <nav
-      class="flex h-20 w-full flex-row items-center justify-around bg-slate-200 p-4"
-    >
-      <div>
-        <h2 class="text-4xl font-bold">Restiloc</h2>
-      </div>
-      <div>
-        <a href="../index.html" class="text-2xl font-bold">Accueil</a>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+  <nav
+    class="flex h-20 w-full flex-row items-center justify-around bg-slate-200 p-4"
+  >
+    <div>
+      <h2 class="text-4xl font-bold">Restiloc</h2>
+    </div>
+    <div>
+      <a href="../index.html" class="text-2xl font-bold">Accueil</a>
+    </div>
+  </nav>
+  
+  <section>
 
     <!-- Create client doc -->
     <section class="mt-20 w-full flex flex-col p-10">
-      <h1>Formulaire de création du dossier client</h1>
+      <h1>Formulaire visualiser le dossier client</h1>
       <div class="flex flex-col p-5 justify-center items-center h-96">
         <form
           action="../php/create-folder.php"
@@ -98,8 +101,12 @@
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             />
           </label>
+
+          <input type="submit" value="Voir dossier client" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg mx-auto hover:bg-slate-800 duration-300">
         </form>
-      </div>
-    </section>
-  </body>
+
+
+  </section>
+
+</body>
 </html>
