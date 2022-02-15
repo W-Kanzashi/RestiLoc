@@ -1,17 +1,29 @@
 <?php
 
-import_once('../db_connect.php');
+include '../db_connect.php';
 
-function connectDB()
-{
-  try {
-    $db = new PDO('mysql:host=10.0.128.127; dbname=restiloc; charset=utf8', $name, $password);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion à la base de données réussie";
-    return $db;
-  } catch (Exception $e) {
-    echo 'Erreur : ' . $e->getMessage();
+function connectDB() {
+  global $name, $password;
+
+  $servername = "127.0.0.1";
+  $username = $name;
+  $password = $password;
+  $database = "restiloc";
+  
+  // Create connection
+  $link_db = mysqli_connect($servername, $username, $password, $database);
+  
+  // Check connection
+  if (!$link_db) {
+    die("Connection failed: " . mysqli_connect_error());
   }
+
+  return $link_db;
+}
+
+function closeDB($db)
+{
+  $db = null;
 }
 
 function insertDB($db, $nom, $prenom, $email) {
@@ -45,3 +57,5 @@ function updateDB($db, $id, $nom, $prenom, $email) {
     'email' => $email
   ));
 }
+
+?>

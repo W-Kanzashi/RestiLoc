@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+
+<?php
+
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+
+?>
+
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +27,7 @@
         <h2 class="text-4xl font-bold">Restiloc</h2>
       </div>
       <div>
-        <a href="./index.html" class="text-2xl font-bold">Accueil</a>
+        <a href="./index.php" class="text-2xl font-bold">Accueil</a>
       </div>
     </nav>
 

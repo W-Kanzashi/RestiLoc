@@ -1,9 +1,21 @@
-<?php
+<!DOCTYPE html>
 
-import_once('./php/db_connect.php');
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once('../db_connect.php');
+require_once('../php/connexion.php');
+
+$db = connectDB();
+
+closeDB($db);
+
+echo "Connexion à la base de données réussie";
 
 ?>
-<!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -20,7 +32,7 @@ import_once('./php/db_connect.php');
         <h2 class="text-4xl font-bold">Restiloc</h2>
       </div>
       <div>
-        <a href="../index.html" class="text-2xl font-bold">Accueil</a>
+        <a href="../index.php" class="text-2xl font-bold">Accueil</a>
       </div>
     </nav>
 

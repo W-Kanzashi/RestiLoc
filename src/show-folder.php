@@ -16,7 +16,7 @@
       <h2 class="text-4xl font-bold">Restiloc</h2>
     </div>
     <div>
-      <a href="../index.html" class="text-2xl font-bold">Accueil</a>
+      <a href="../index.php" class="text-2xl font-bold">Accueil</a>
     </div>
   </nav>
   
