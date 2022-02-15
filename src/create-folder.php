@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-require_once('../db_connect.php');
-require_once('../php/connexion.php');
+require_once "../db_connect.php";
+require_once "../php/connexion.php";
 
 $db = connectDB();
 
 closeDB($db);
-
-echo "Connexion à la base de données réussie";
-
 ?>
 
 <html lang="en">
@@ -37,7 +34,7 @@ echo "Connexion à la base de données réussie";
     </nav>
 
     <!-- Create client doc -->
-    <section class="mt-20 w-full flex flex-col p-10">
+    <section class="mt-20 w-full flex flex-col p-10 gap-10">
       <h1>Formulaire de création du dossier client</h1>
       <div class="flex flex-col p-5 justify-center items-center h-96">
         <form
@@ -52,6 +49,7 @@ echo "Connexion à la base de données réussie";
               name="fname"
               id="fname"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              required
             />
           </label>
           <label for="lname">
@@ -61,7 +59,14 @@ echo "Connexion à la base de données réussie";
               name="lname"
               id="lname"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              required
             />
+          </label>
+          <label for="date">
+            <span>Date</span>
+            <input type="date" name="date" id="date" class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
+            required>
           </label>
           <label for="address">
             <span>Adresse</span>
@@ -90,8 +95,9 @@ echo "Connexion à la base de données réussie";
               name="pphone"
               id="pphone"
               placeholder="00 00 00 00 00"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              required
             />
           </label>
           <label for="hphone">
@@ -101,7 +107,7 @@ echo "Connexion à la base de données réussie";
               name="hphone"
               id="hphone"
               placeholder="00 00 00 00 00"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              pattern="[0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2}"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             />
           </label>
@@ -122,4 +128,40 @@ echo "Connexion à la base de données réussie";
       </div>
     </section>
   </body>
+
+  <script>
+    document.getElementById("pphone").addEventListener("keydown", function(e) {
+    const txt = this.value;
+    // prevent more than 12 characters, ignore the spacebar, allow the backspace
+    if ((txt.length == 14 || e.which == 32) & e.which !== 8) e.preventDefault();
+    // add spaces after 3 & 7 characters, allow the backspace
+    if ((txt.length == 2 || txt.length == 5 || txt.length == 8 || txt.length == 11) && e.which !== 8)
+      this.value = this.value + " ";
+  });
+  // when the form is submitted, remove the spaces
+  document.forms[0].addEventListener("submit", e => {
+    e.preventDefault();
+    const phone = e.target.elements["pphone"];
+    phone.value = phone.value.replaceAll(" ", "");
+    console.log(phone.value);
+    //e.submit();
+  });
+
+  document.getElementById("hphone").addEventListener("keydown", function(e) {
+    const txt = this.value;
+    // prevent more than 12 characters, ignore the spacebar, allow the backspace
+    if ((txt.length == 14 || e.which == 32) & e.which !== 8) e.preventDefault();
+    // add spaces after 3 & 7 characters, allow the backspace
+    if ((txt.length == 2 || txt.length == 5 || txt.length == 8 || txt.length == 11) && e.which !== 8)
+      this.value = this.value + " ";
+  });
+  // when the form is submitted, remove the spaces
+  document.forms[0].addEventListener("submit", e => {
+    e.preventDefault();
+    const phone = e.target.elements["hphone"];
+    phone.value = phone.value.replaceAll(" ", "");
+    console.log(phone.value);
+    //e.submit();
+  });
+  </script>
 </html>

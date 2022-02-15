@@ -27,7 +27,7 @@
       <h1>Formulaire visualiser le dossier client</h1>
       <div class="flex flex-col p-5 justify-center items-center h-96">
         <form
-          action="../php/create-folder.php"
+          action="../php/connexion.php"
           method="post"
           class="grid w-full grid-cols-2 gap-5"
         >
@@ -76,7 +76,7 @@
               name="pphone"
               id="pphone"
               placeholder="00 00 00 00 00"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             />
           </label>
@@ -87,7 +87,7 @@
               name="hphone"
               id="hphone"
               placeholder="00 00 00 00 00"
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+              pattern="[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             />
           </label>
