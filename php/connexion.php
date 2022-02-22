@@ -34,20 +34,20 @@ function closeDB($db)
 
 function insertDB($db, $table)
 {
-  $sql =
-    "INSERT INTO " .
-    $table .
-    " (champ1, champ2, champ3, champ4, champ5, champ6, champ7, champ8, champ9) VALUES (:v1, :v2, :v3, :v4, :v5, :v6, :v7, :v8, :v9)";
-
-  $req = $db->prepare($sql);
-
   try {
-    for ($i = 1; $i < 10; $i++) {
-      $req->bindParam(":v" . $i, $_POST["champ" . $i]);
+    $key = array_keys($_POST);
+    $val = array_values($_POST);
+    $sql =
+      "INSERT INTO $table (" .
+      implode(", ", $key) .
+      ") " .
+      "VALUES ('" .
+      implode("', '", $val) .
+      "')";
 
-      echo "<pre>" . var_dump($_POST["champ" . $i]) . "</pre>";
-    }
-    $req->debugDumpParams();
+    $req = $db->prepare($sql);
+
+    // $req->debugDumpParams();
 
     $req->execute();
   } catch (Exception $e) {
@@ -55,10 +55,26 @@ function insertDB($db, $table)
   }
 }
 
-function selectDB($db)
+function selectDB($db, $table)
 {
-  $req = $db->prepare("SELECT * FROM users");
-  $req->execute();
+  try {
+    $key = array_keys($_POST);
+    $val = array_values($_POST);
+
+    $sql =
+      "SELECT * FROM $table WHERE prenom_client='" .
+      $_POST["prenom_client"] .
+      "' ORDER BY prenom_client ASC";
+
+    echo $sql;
+
+    $req = $db->prepare($sql);
+
+    $req->execute();
+  } catch (Exception $e) {
+    print $e->getMessage();
+  }
+
   return $req->fetchAll();
 }
 
@@ -81,6 +97,45 @@ function updateDB($db, $id, $nom, $prenom, $email)
     "prenom" => $prenom,
     "email" => $email,
   ]);
+}
+
+function displayResult($results)
+{
+  $counter = 0;
+
+  echo "<div class='grid grid-cols-4 gap-4 w-full'>";
+  foreach ($results as $result) {
+    echo "<button class='my-10 border-2 rounded-xl border-slate-800 shadow-lg px-5 py-4 hover:scale-105 hover:shadow-lg hover:duration-300 col-span-1'>";
+    echo "<a href='./show-folder.php?id=" . $counter . "'>";
+    echo "<h2>Client :</h2>";
+    echo "<p>";
+    echo "Prénom : " . $result["prenom_client"] . "<br/>";
+    echo "Nom : " . $result["nom_client"] . "<br/>";
+    echo "</p>";
+    echo "</a>";
+    echo "</button>";
+    $counter++;
+  }
+  echo "</div>";
+}
+
+function displayClient()
+{
+  echo "<div class='border-2 border-slate-800 rounded-xl px-10 py-6'>";
+  echo "Prénom : " . $_SESSION["displayClient"][$_GET["id"]][2] . "<br/>";
+  echo "Nom : " . $_SESSION["displayClient"][$_GET["id"]][1] . "<br/>";
+  echo "Date de naissance : " .
+    $_SESSION["displayClient"][$_GET["id"]][9] .
+    "<br/>";
+  echo "Rue : " . $_SESSION["displayClient"][$_GET["id"]][3] . "<br/>";
+  echo "Ville : " . $_SESSION["displayClient"][$_GET["id"]][4] . "<br/>";
+  echo "Code postal : " . $_SESSION["displayClient"][$_GET["id"]][5] . "<br/>";
+  echo "Téléphone : +33 " .
+    $_SESSION["displayClient"][$_GET["id"]][6] .
+    "<br/>";
+  echo "Portable : +33 " . $_SESSION["displayClient"][$_GET["id"]][7] . "<br/>";
+  echo "Email : " . $_SESSION["displayClient"][$_GET["id"]][8] . "<br/>";
+  echo "</div>";
 }
 
 ?>

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 
 <?php
-
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
-
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
+error_reporting(E_ALL);
 ?>
 
 <html lang="fr">
@@ -14,8 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link href="./dist/index.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="./css/index.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/output.css" />
     <title>Application Restiloc</title>
   </head>
 
@@ -38,14 +35,14 @@
         class="rounded-xl border-2 border-slate-800 p-10 hover:scale-110 hover:shadow-lg hover:duration-300"
       >
         <a href="./src/create-folder.php">
-          <h1 class="text-4xl font-semibold">Créer un dossier</h1>
+          <h1 class="text-4xl font-semibold">Créer un client</h1>
         </a>
       </div>
       <div
         class="rounded-xl border-2 border-slate-800 p-10 hover:scale-110 hover:shadow-lg hover:duration-300"
       >
         <a href="./src/show-folder.php">
-          <h1 class="text-4xl font-semibold">Visualiser un dossier</h1>
+          <h1 class="text-4xl font-semibold">Afficher un client</h1>
         </a>
       </div>
     </section>

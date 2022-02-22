@@ -5,15 +5,12 @@ ini_set("display_errors", 1);
 ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-require_once "../db_connect.php";
 require_once "../php/connexion.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $db = connectDB();
 
-  $_POST["table"] = htmlspecialchars("Client");
-
-  insertDB($db, $_POST["table"]);
+  insertDB($db, "client");
 
   closeDB($db);
 }
@@ -25,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restiloc - Creer dossier</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/output.css" />
   </head>
   <body>
     <nav
@@ -52,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Prénom</span>
             <input
               type="text"
-              name="champ1"
+              name="prenom_client"
               id="fname"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               required
@@ -63,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Nom</span>
             <input
               type="text"
-              name="champ2"
+              name="nom_client"
               id="lname"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
               required
@@ -72,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </label>
           <label for="date">
             <span>Date de naissance</span>
-            <input type="date" name="champ3" id="date" class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            <input type="date" name="date_naissance_client" id="date" class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
             pattern="[0-31]{2}/[0-12]{2}/[1000-3000]{2}"
             required
             value="01/10/1312">
@@ -81,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Adresse</span>
             <input
               type="text"
-              name="champ4"
+              name="rue_client"
               id="address"
               placeholder="123 Avenue..."
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
@@ -92,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Code Postal</span>
             <input
               type="text"
-              name="champ5"
+              name="cp_client"
               id="cp"
               placeholder="00000"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
@@ -103,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Ville</span>
             <input
               type="text"
-              name="champ6"
+              name="ville_client"
               id="city"
               placeholder="Paris"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
@@ -114,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Téléphone</span>
             <input
               type="tel"
-              name="champ7"
+              name="tel_client"
               id="pphone"
               placeholder="00 00 00 00 00"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
@@ -126,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Portable</span>
             <input
               type="tel"
-              name="champ8"
+              name="tel_port_client"
               id="hphone"
               placeholder="00 00 00 00 00"
               class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
@@ -137,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span>Email</span>
             <input
               type="email"
-              name="champ9"
+              name="email_client"
               id="email"
               placeholder="email@example.com"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
