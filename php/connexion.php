@@ -121,7 +121,6 @@ function displayResult($results)
 
 function displayClient()
 {
-  echo "<div class='border-2 border-slate-800 rounded-xl px-10 py-6'>";
   echo "Prénom : " . $_SESSION["displayClient"][$_GET["id"]][2] . "<br/>";
   echo "Nom : " . $_SESSION["displayClient"][$_GET["id"]][1] . "<br/>";
   echo "Date de naissance : " .
@@ -135,7 +134,10 @@ function displayClient()
     "<br/>";
   echo "Portable : +33 " . $_SESSION["displayClient"][$_GET["id"]][7] . "<br/>";
   echo "Email : " . $_SESSION["displayClient"][$_GET["id"]][8] . "<br/>";
-  echo "</div>";
+}
+
+function createClientFolder()
+{
 }
 
 ?>

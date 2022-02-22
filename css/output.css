@@ -486,6 +486,14 @@ folder:hover {
   transition-duration: 300ms;
 }
 
+button.client {
+  border-radius: 0.5rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(30 41 59 / var(--tw-border-opacity));
+  padding: 1.25rem;
+}
+
 .col-span-1 {
   grid-column: span 1 / span 1;
 }

@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             />
           </label>
   
-          <input type="submit" value="Voir dossier client" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg mx-auto hover:bg-slate-800 duration-300">
+          <input type="submit" value="Rechercher" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-800 duration-300">
         </form>
       </div>
       <div>
@@ -86,9 +86,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </section>
   
     <section class="mb-20 h-screen basis-1/3">
-      <?php if (isset($_GET["id"])) {
-        displayClient($_SESSION["displayClient"][$_GET["id"]]);
-      } ?>
+      <div class='border-2 border-slate-800 rounded-xl px-10 py-6'>
+        <?php if (isset($_GET["id"])) {
+          displayClient($_SESSION["displayClient"][$_GET["id"]]);
+        } ?>
+
+        <div class="flex flex-row gap-4">
+          <button class="client">Ajouter un RDV</button>
+        </div>
+      </div>
     </section>
   </div>
 

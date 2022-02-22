@@ -15,4 +15,8 @@ body {
   folder:hover {
     @apply scale-110 shadow-lg duration-300;
   }
+
+  button.client {
+    @apply rounded-lg border-2 border-slate-800 p-5;
+  }
 }
