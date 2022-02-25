@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               type="text"
               name="prenom_client"
               id="fname"
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               required
               value="John"
             />
@@ -62,14 +62,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               type="text"
               name="nom_client"
               id="lname"
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               required
               value="Doe"
             />
           </label>
           <label for="date">
             <span>Date de naissance</span>
-            <input type="date" name="date_naissance_client" id="date" class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+            <input type="date" name="date_naissance_client" id="date" class="text-input"
             pattern="[0-31]{2}/[0-12]{2}/[1000-3000]{2}"
             required
             value="01/10/1312">
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               name="rue_client"
               id="address"
               placeholder="123 Avenue..."
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               value="123 Avenue..."
             />
           </label>
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               name="cp_client"
               id="cp"
               placeholder="00000"
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               value="10000"
             />
           </label>
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               name="ville_client"
               id="city"
               placeholder="Paris"
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               value="Paris"
             />
           </label>
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               name="tel_client"
               id="pphone"
               placeholder="00 00 00 00 00"
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               required
               value="0000000000"
             />
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               name="tel_port_client"
               id="hphone"
               placeholder="00 00 00 00 00"
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               value="0000000000"
             />
           </label>
@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               id="email"
               placeholder="email@example.com"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              class="mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm"
+              class="text-input"
               value="jhon.doe@example.com"
             />
           </label>
