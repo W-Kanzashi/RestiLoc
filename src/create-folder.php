@@ -10,7 +10,7 @@ require_once "../php/connexion.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $db = connectDB();
 
-  insertDB($db, "client");
+  insertDB($db, "Client");
 
   closeDB($db);
 }
@@ -142,6 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               value="jhon.doe@example.com"
             />
           </label>
+          <input type="hidden" name="table" value="Create">
 
           <input type="submit" value="Créer client" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg mx-auto hover:bg-slate-800 duration-300">
         </form>

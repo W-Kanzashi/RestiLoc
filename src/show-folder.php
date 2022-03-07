@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               class="text-input"
             />
           </label>
-          <input type="hidden" name="table" value="client">
+          <input type="hidden" name="table" value="Client">
           <input type="hidden" name="request" value="select">
   
           <input type="submit" value="Rechercher" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-800 duration-300">

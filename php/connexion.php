@@ -37,7 +37,12 @@ function insertDB($db, $table)
 {
   try {
     // Remove the last value of the array that indicate the table name
-    $array = array_slice($_POST, 0, -2);
+    if ($_POST["table"] !== "Create") {
+      $array = array_slice($_POST, 0, -2);
+    }
+    else {
+      $array = array_slice($_POST, 0, -1);
+    }
 
     echo "<pre>";
     print_r($_POST);
@@ -59,7 +64,7 @@ function insertDB($db, $table)
 
     $req = $db->prepare($sql);
 
-    // $req->debugDumpParams();
+    $req->debugDumpParams();
 
     $req->execute();
   } catch (Exception $e) {
