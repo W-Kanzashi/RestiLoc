@@ -39,8 +39,7 @@ function insertDB($db, $table)
     // Remove the last value of the array that indicate the table name
     if ($_POST["table"] !== "Create") {
       $array = array_slice($_POST, 0, -2);
-    }
-    else {
+    } else {
       $array = array_slice($_POST, 0, -1);
     }
 
@@ -78,10 +77,32 @@ function selectDB($db, $table)
     $key = array_keys($_POST);
     $val = array_values($_POST);
 
-    $sql =
-      "SELECT * FROM $table WHERE prenom_client='" .
-      $_POST["prenom_client"] .
-      "' ORDER BY prenom_client ASC";
+    $key = array_slice($key, 0, -1);
+    $val = array_slice($val, 0, -2);
+
+    echo "Key : ";
+    var_dump($key);
+    echo "Value : ";
+    var_dump($val);
+
+    // Build the sql request
+
+    $sql = "SELECT * FROM $table WHERE ";
+
+    if ($key[0] === "num_dossier" && $val[0] !== "") {
+      $sql .= "num_dossier = '" . $val[0] . "'";
+    }
+    if ($key[1] === "immatriculation" && $val[1] !== "") {
+      $sql .= "immatriculation = '" . $val[1] . "'";
+    }
+    if ($key[2] === "nom_client" && $val[2] !== "") {
+      $sql .= "nom_client = '" . $val[2] . "'";
+    }
+    if ($key[3] === "prenom_client" && $val[3] !== "") {
+      $sql .= "prenom_client = '" . $val[3] . "'";
+    }
+
+    $sql .= " ORDER BY prenom_client ASC";
 
     echo $sql;
 

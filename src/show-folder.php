@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 
 <?php
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
-
 session_start();
-
 require_once "../php/connexion.php";
 
 $clientFolder = "false";
@@ -25,12 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     closeDB($db);
   }
-
-  echo "<pre>";
-  var_dump($_SESSION);
-  var_dump($_POST);
-  echo "</pre>";
 }
+var_dump($_SESSION);
+var_dump($_POST);
 ?>
 
 <html lang="en">
@@ -65,21 +57,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           method="post"
           class="grid grid-cols-2 gap-5"
         >
-          <label for="fname" class="">
+          <label for="num_dossier" class="">
             <span>Numéro de dossier</span>
             <input
               type="text"
-              name="prenom_client"
-              id="fname"
+              name="num_dossier"
+              id="num_dossier"
               class="text-input"
             />
           </label>
-          <label for="lname">
+          <label for="immatriculation">
             <span>Immatriculation du véhicule</span>
             <input
               type="text"
-              name="nom_client"
-              id="lname"
+              name="immatriculation"
+              id="immatriculation"
               class="text-input"
             />
           </label>
@@ -101,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               class="text-input"
             />
           </label>
-          <input type="hidden" name="table" value="Client">
+          <input type="hidden" name="table" value="client">
           <input type="hidden" name="request" value="select">
   
           <input type="submit" value="Rechercher" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-800 duration-300">
