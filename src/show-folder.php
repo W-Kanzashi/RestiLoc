@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 
 <?php
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
+error_reporting(E_ALL);
+
 session_start();
+
 require_once "../php/connexion.php";
 
 $clientFolder = "false";
@@ -23,7 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 echo "SESSION : ";
+echo "<pre>";
 var_dump($_SESSION);
+echo "</pre>";
 echo "POST : ";
 var_dump($_POST);
 echo "GET : ";
@@ -119,10 +126,15 @@ var_dump($_GET);
         }
 
         // Check if the client got a folder or not
-        if (isset($_SESSION["clientFolder"])) {
-          createClientFolder();
-        } else {
-          displayClientFolder();
+        if (isset($_GET["id"])) {
+          if (
+            $_SESSION["clientFolder"][0]["id_client"] ===
+            $_SESSION["displayClient"][$_GET["id"]]["id_client"]
+          ) {
+            displayClientFolder();
+          } else {
+            createClientFolder();
+          }
         }
         ?>        
       </div>

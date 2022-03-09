@@ -2,3 +2,4 @@
 /dist
 yarn.lock
 db_connect.php
+.dccache

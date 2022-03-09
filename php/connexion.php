@@ -297,7 +297,6 @@ function addClientMeeting()
 function displayClientFolder()
 {
   ?>
-
     <div class="flex flex-col gap-3">
       <h2 class="text-2xl font-bold">Dossier Client</h2>
       <h3>Reférence du dossier : <?php echo $_SESSION["clientFolder"][0][
