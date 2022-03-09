@@ -37,14 +37,18 @@ function insertDB($db, $table)
 {
   try {
     // Remove the last value of the array that indicate the table name
-    if ($_POST["table"] !== "create") {
-      $array = array_slice($_POST, 0, -2);
-    } else {
+    if ($_POST["table"] === "create") {
       $array = array_slice($_POST, 0, -1);
-    }
+    } elseif ($_POST["table"] === "rdv") {
+      $result = selectDB($db, "garage");
 
-    var_dump($_POST);
-    var_dump($array);
+      // Remove unuse data
+      unset($result[0][0], $result[0][1]);
+      $array = array_slice($_POST, 0, -3);
+      $array = array_merge($array, $result[0]);
+    } else {
+      $array = array_slice($_POST, 0, -2);
+    }
 
     $key = array_keys($array);
     $val = array_values($array);
@@ -101,9 +105,19 @@ function selectDB($db, $table)
       // JOIN expert ON expert.id_vehicule=dossier.id_expert
       // WHERE id_client=?
       $sql .= "JOIN vehicule ON vehicule.id_vehicule=dossier.id_vehicule ";
+      //$sql .= "JOIN expert ON expert.id_expert=dossier.id_expert ";
       $sql .=
         "WHERE id_client=" .
         $_SESSION["displayClient"][$_GET["id"]]["id_client"];
+    }
+
+    if ($table === "garage") {
+      // SELECT * FROM `expert`
+      // JOIN garage ON garage.ville_garage="Auvergne"
+      // WHERE ville_expert="Auvergne"
+      $sql = "SELECT id_expert, id_garage FROM garage ";
+      $sql .= "JOIN expert ON expert.ville_expert='" . $_POST["garage"] . "'";
+      $sql .= " WHERE garage.ville_garage='" . $_POST["garage"] . "'";
     }
 
     // Request database
@@ -141,17 +155,21 @@ function deleteDB($db, $id)
   ]);
 }
 
-function updateDB($db, $id, $nom, $prenom, $email)
+function updateDB($db, $table)
 {
-  $req = $db->prepare(
-    "UPDATE users SET nom = :nom, prenom = :prenom, email = :email WHERE id = :id"
-  );
-  $req->execute([
-    "id" => $id,
-    "nom" => $nom,
-    "prenom" => $prenom,
-    "email" => $email,
-  ]);
+  try {
+    // UPDATE client SET
+    $sql =
+      "UPDATE $table SET id_expert=" .
+      $_POST["id_expert"] .
+      " WHERE id_client=" .
+      $_POST["id_client"];
+
+    $req = $db->prepare($sql);
+    $req->execute();
+  } catch (Exception $e) {
+    print $e->getMessage();
+  }
 }
 
 function displayResult($results)
@@ -272,22 +290,25 @@ function addClientMeeting()
       ); ?>" method="post" class="flex flex-row w-full items-center gap-5">
         <label for="date">
           <span>Jour de RDV</span>
-          <input type="date" name="date_naissance_client" id="date" class="text-input"
+          <input type="date" name="date_rdv" id="date" class="text-input"
           pattern="[0-31]{2}/[0-12]{2}/[1000-3000]{2}"
           required
           value="01/10/1312">
         </label>
+        <input type="hidden" name="id_dossier" value="<?php echo $_SESSION[
+          "clientFolder"
+        ][0]["id_dossier"]; ?>">
         <label for="address">
           <span>Choix de la ville</span>
           <select id="garage" name="garage" class="text-input">
-            <option value="Paris">Paris</option>
-            <option value="Strasbourg">Strasbourg</option>
+            <option value="Auvergne">Auvergne</option>
+            <option value="Haute-Normandie">Haute-Normandie</option>
             <option value="Lyon">Lyon</option>
             <option value="Lille">Lille</option>
           </select>
         </label>
         <input type="hidden" name="table" value="rdv">
-        <input type="hidden" name="request" value="select">
+        <input type="hidden" name="request" value="insert">
         <input type="submit" value="Ajouter un RDV" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-800 duration-300"/>
       </form>
     </div>
@@ -299,16 +320,21 @@ function displayClientFolder()
   ?>
     <div class="flex flex-col gap-3">
       <h2 class="text-2xl font-bold">Dossier Client</h2>
-      <h3>Reférence du dossier : <?php echo $_SESSION["clientFolder"][0][
-        "ref_dossier"
-      ]; ?></h3>
-      <h3>Date de création : <?php echo $_SESSION["clientFolder"][0][
-        "date_creation_dossier"
-      ]; ?></h3>
-      <h3>Disponibilité client : <?php echo $_SESSION["clientFolder"][0][
-        "indisponibilite"
-      ]; ?></h3>
-      <h3 class="text-xl font-semibold">Informations Véhicule :</h3>
+      <div>
+        <h3>Reférence du dossier : <?php echo $_SESSION["clientFolder"][0][
+          "ref_dossier"
+        ]; ?></h3>
+        <h3>Date de création : <?php echo $_SESSION["clientFolder"][0][
+          "date_creation_dossier"
+        ]; ?></h3>
+        <h3>Date de RDV : <?php echo $_SESSION["clientFolder"][0][
+          "date_creation_dossier"
+        ]; ?></h3>
+        <h3>Disponibilité client : <?php echo $_SESSION["clientFolder"][0][
+          "indisponibilite"
+        ]; ?></h3>
+        <h3 class="text-xl font-semibold">Informations Véhicule :</h3>
+      </div>
       <div class="pl-5">
         <h4>Date de mise en circulation : <?php echo $_SESSION[
           "clientFolder"
@@ -316,9 +342,11 @@ function displayClientFolder()
         <h4>Couleur : <?php echo $_SESSION["clientFolder"][0][
           "couleur"
         ]; ?></h4>
-        <h4>Modèle : <?php echo $_SESSION["clientFolder"][0]["couleur"]; ?></h4>
+        <h4>Modèle : <?php echo $_SESSION["clientFolder"][0][
+          "nom_modele"
+        ]; ?></h4>
         <h4>Immatriculation : <?php echo $_SESSION["clientFolder"][0][
-          "couleur"
+          "immatriculation"
         ]; ?></h4>
       </div>
       <h3 class="text-xl font-semibold">Informations Expert :</h3>
@@ -339,7 +367,9 @@ function displayClientFolder()
       </div>
     </div>
 
-  <?php addClientMeeting();
+  <?php
+  addClientMeeting();
+  updateDB(connectDB(), "client");
 }
 
 ?>

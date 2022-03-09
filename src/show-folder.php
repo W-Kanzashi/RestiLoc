@@ -22,19 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sqlResult = selectDB($db, $_POST["table"]);
         $_SESSION["displayClient"] = $sqlResult;
         break;
+      case "update":
+        updateDB($db, $_POST["table"]);
+        break;
     }
     closeDB($db);
   }
 }
-
-echo "SESSION : ";
-echo "<pre>";
-var_dump($_SESSION);
-echo "</pre>";
-echo "POST : ";
-var_dump($_POST);
-echo "GET : ";
-var_dump($_GET);
 ?>
 
 <html lang="en">
@@ -120,13 +114,10 @@ var_dump($_GET);
   
     <section class="mb-20 h-screen basis-2/3">
       <div class='border-2 border-slate-800 rounded-xl px-10 py-6 flex flex-col gap-10'>
-        <?php
-        if (isset($_GET["id"])) {
+        <?php if (isset($_GET["id"])) {
           displayClient($_SESSION["displayClient"][$_GET["id"]]);
-        }
 
-        // Check if the client got a folder or not
-        if (isset($_GET["id"])) {
+          // Check if the client got a folder or not
           if (
             $_SESSION["clientFolder"][0]["id_client"] ===
             $_SESSION["displayClient"][$_GET["id"]]["id_client"]
@@ -135,8 +126,7 @@ var_dump($_GET);
           } else {
             createClientFolder();
           }
-        }
-        ?>        
+        } ?>        
       </div>
     </section>
   </div>
