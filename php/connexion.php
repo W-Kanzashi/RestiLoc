@@ -308,7 +308,7 @@ function addClientMeeting()
           </select>
         </label>
         <input type="hidden" name="table" value="rdv">
-        <input type="hidden" name="request" value="insert">
+        <input type="hidden" name="request" value="update">
         <input type="submit" value="Ajouter un RDV" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-800 duration-300"/>
       </form>
     </div>
@@ -367,9 +367,5 @@ function displayClientFolder()
       </div>
     </div>
 
-  <?php
-  addClientMeeting();
-  updateDB(connectDB(), "client");
+  <?php addClientMeeting();
 }
-
-?>
