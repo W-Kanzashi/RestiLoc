@@ -1,21 +1,26 @@
 <?php
 
+include_once "database.php";
+
 class DisplayInfo extends Database
 {
+  private $data = [];
   public function __construct()
   {
     parent::__construct();
   }
 
-  function displayResult($results)
+  public function displayResult(): void
   {
     $counter = 0;
-    echo "<div class='grid grid-cols-3 gap-4 w-full'>";
-    foreach ($results as $result) {
-      echo "<button class='my-10 border-2 rounded-xl border-slate-800 shadow-lg px-5 py-4 hover:scale-105 hover:shadow-lg hover:duration-300 col-span-1'>";
+    echo "<div class='flex flex-col gap-4 w-full'>";
+    foreach ($this->getClientData() as $result) {
+      echo "<button class='my-10 border-2 rounded-xl px-5 py-4 hover:duration-300 bg-slate-100 hover:bg-slate-800 hover:text-slate-100'>";
       echo "<a href='./show-folder.php?id=" . $counter . "'>";
       echo "<h2 class='text-lg font-bold'>Client</h2>";
       echo "<p>";
+      echo "Dossier : " . $result["ref_dossier"] . "<br/>";
+      echo "Plaque d'immatriculation : " . $result["immatriculation"] . "<br/>";
       echo "Prénom : " . $result["prenom_client"] . "<br/>";
       echo "Nom : " . $result["nom_client"] . "<br/>";
       echo "</p>";
@@ -26,32 +31,28 @@ class DisplayInfo extends Database
     echo "</div>";
   }
 
-  function displayClient()
+  public function displayClient(): void
   {
-    echo "Prénom : " . $_SESSION["displayClient"][$_GET["id"]][2] . "<br/>";
-    echo "Nom : " . $_SESSION["displayClient"][$_GET["id"]][1] . "<br/>";
+    $this->data = $this->getClientData($_GET["id"]);
+    echo "<pre>";
+    var_dump($this->data);
+    echo "</pre>";
+    echo "Prénom : " . $this->data["prenom_client"] . "<br/>";
+    echo "Nom : " . $this->data["nom_client"] . "<br/>";
     echo "Date de naissance : " .
-      $_SESSION["displayClient"][$_GET["id"]][9] .
+      $this->data["date_naissance_client"] .
       "<br/>";
-    echo "Rue : " . $_SESSION["displayClient"][$_GET["id"]][3] . "<br/>";
-    echo "Ville : " . $_SESSION["displayClient"][$_GET["id"]][4] . "<br/>";
-    echo "Code postal : " .
-      $_SESSION["displayClient"][$_GET["id"]][5] .
-      "<br/>";
-    echo "Téléphone : +33 " .
-      $_SESSION["displayClient"][$_GET["id"]][6] .
-      "<br/>";
-    echo "Portable : +33 " .
-      $_SESSION["displayClient"][$_GET["id"]][7] .
-      "<br/>";
-    echo "Email : " . $_SESSION["displayClient"][$_GET["id"]][8] . "<br/>";
+    echo "Rue : " . $this->data["rue_client"] . "<br/>";
+    echo "Ville : " . $this->data["ville_client"] . "<br/>";
+    echo "Code postal : " . $this->data["cp_client"] . "<br/>";
+    echo "Téléphone : +33 " . $this->data["tel_client"] . "<br/>";
+    echo "Portable : +33 " . $this->data["tel_port_client"] . "<br/>";
+    echo "Email : " . $this->data["email_client"] . "<br/>";
 
-    $db = connectDB();
-    $_SESSION["clientFolder"] = selectDB($db, "dossier");
-    closeDB($db);
+    $this->setExpertData($this->selectDB("expert", $this->data["id_expert"]));
   }
 
-  function displayCreateFolder()
+  public function displayCreateFolder(): void
   {
     ?>
       <div class="gap-4">
@@ -65,7 +66,7 @@ class DisplayInfo extends Database
     <?php
   }
 
-  function createClientFolder()
+  public function createClientFolder(): void
   {
     ?>
       <div class="bg-slate-200 px-5 py-4">
@@ -92,9 +93,9 @@ class DisplayInfo extends Database
               <span>Choix du véhicule</span>
               <select id="cars" name="id_vehicule" class="text-input">
               <?php
-              $db = connectDB();
-              $cars = selectAllCars($db, "vehicule");
-              closeDB($db);
+              $this->connectDB();
+              $cars = $this->selectAllCars("vehicule");
+              $this->closeDB();
               foreach ($cars as $car) {
                 echo "<option value=" .
                   $car["id_vehicule"] .
@@ -120,8 +121,11 @@ class DisplayInfo extends Database
     <?php
   }
 
-  function addClientMeeting()
+  public function addClientMeeting(): void
   {
+    $this->setGarageData($this->selectDB("garage"));
+    $data = $this->getGarageData();
+    var_dump($data);
     ?>
       <div class="flex flex-row gap-4">
         <form action="<?php echo htmlspecialchars(
@@ -134,12 +138,19 @@ class DisplayInfo extends Database
             required
             value="01/10/1312">
           </label>
-          <input type="hidden" name="id_dossier" value="<?php echo $_SESSION[
-            "clientFolder"
-          ][0]["id_dossier"]; ?>">
+          <input type="hidden" name="id_dossier" value="<?php echo $this->data[
+            "id_dossier"
+          ]; ?>">
           <label for="address">
             <span>Choix de la ville</span>
             <select id="garage" name="garage" class="text-input">
+              <?php foreach ($data as $garage) {
+                echo "<option value=" .
+                  $garage["ville_garage"] .
+                  ">" .
+                  $garage["ville_garage"] .
+                  "</option>";
+              } ?>
               <option value="Auvergne">Auvergne</option>
               <option value="Haute-Normandie">Haute-Normandie</option>
               <option value="Lyon">Lyon</option>
@@ -154,60 +165,57 @@ class DisplayInfo extends Database
     <?php
   }
 
-  function displayClientFolder()
+  private function displayExpertData(): void
   {
     ?>
+      <h3 class="text-xl font-semibold">Informations Expert :</h3>
+      <div class="pl-5">
+        <h4>Nom : <?php echo $this->data["nom_expert"]; ?></h4>
+        <h4>Prenom : <?php echo $this->data["prenom_expert"]; ?></h4>
+        <h4>Ville d'intervention : <?php echo $this->data[
+          "ville_expert"
+        ]; ?></h4>
+        <h4>Téléphone : <?php echo $this->data["tel_port_expert"]; ?></h4>
+        <h4>Email : <?php echo $this->data["email_expert"]; ?></h4>
+      </div>
+    <?php
+  }
+
+  public function displayClientFolder(): void
+  {
+    $this->data = $this->getClientData($_GET["id"]); ?>
       <div class="flex flex-col gap-3">
         <h2 class="text-2xl font-bold">Dossier Client</h2>
         <div>
-          <h3>Reférence du dossier : <?php echo $_SESSION["clientFolder"][0][
+          <h3>Reférence du dossier : <?php echo $this->data[
             "ref_dossier"
           ]; ?></h3>
-          <h3>Date de création : <?php echo $_SESSION["clientFolder"][0][
+          <h3>Date de création : <?php echo $this->data[
             "date_creation_dossier"
           ]; ?></h3>
-          <h3>Date de RDV : <?php echo $_SESSION["clientFolder"][0][
+          <h3>Date de RDV : <?php echo $this->data[
             "date_creation_dossier"
           ]; ?></h3>
-          <h3>Disponibilité client : <?php echo $_SESSION["clientFolder"][0][
+          <h3>Disponibilité client : <?php echo $this->data[
             "indisponibilite"
           ]; ?></h3>
           <h3 class="text-xl font-semibold">Informations Véhicule :</h3>
         </div>
         <div class="pl-5">
-          <h4>Date de mise en circulation : <?php echo $_SESSION[
-            "clientFolder"
-          ][0]["date_mec"]; ?></h4>
-          <h4>Couleur : <?php echo $_SESSION["clientFolder"][0][
-            "couleur"
+          <h4>Date de mise en circulation : <?php echo $this->data[
+            "date_mec"
           ]; ?></h4>
-          <h4>Modèle : <?php echo $_SESSION["clientFolder"][0][
-            "nom_modele"
-          ]; ?></h4>
-          <h4>Immatriculation : <?php echo $_SESSION["clientFolder"][0][
-            "immatriculation"
-          ]; ?></h4>
+          <h4>Couleur : <?php echo $this->data["couleur"]; ?></h4>
+          <h4>Modèle : <?php echo $this->data["nom_modele"]; ?></h4>
+          <h4>Immatriculation : <?php echo $this->data["immatriculation"]; ?>
+          <?php $this->getExpertData() !== []
+            ? $this->displayExpertData()
+            : null; ?>
+          </h4>
         </div>
-        <h3 class="text-xl font-semibold">Informations Expert :</h3>
-        <div class="pl-5">
-          <h4>Nom : <?php echo $_SESSION["clientFolder"][0][
-            "nom_expert"
-          ]; ?></h4>
-          <h4>Prenom : <?php echo $_SESSION["clientFolder"][0][
-            "prenom_expert"
-          ]; ?></h4>
-          <h4>Ville d'intervention : <?php echo $_SESSION["clientFolder"][0][
-            "ville_expert"
-          ]; ?></h4>
-          <h4>Téléphone : <?php echo $_SESSION["clientFolder"][0][
-            "tel_port_expert"
-          ]; ?></h4>
-          <h4>Email : <?php echo $_SESSION["clientFolder"][0][
-            "email_expert"
-          ]; ?></h4>
-        </div>
+        
       </div>
 
-    <?php addClientMeeting();
+    <?php $this->addClientMeeting();
   }
 }

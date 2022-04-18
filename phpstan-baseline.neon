@@ -1,0 +1,182 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method SetGet\\:\\:getClientData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: php/SetGet.php
+
+		-
+			message: "#^Method SetGet\\:\\:setClientData\\(\\) has parameter \\$clientData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: php/SetGet.php
+
+		-
+			message: "#^Property SetGet\\:\\:\\$clientData type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: php/SetGet.php
+
+		-
+			message: "#^Property SetGet\\:\\:\\$clientFolderData type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: php/SetGet.php
+
+		-
+			message: "#^Access to an undefined property Database\\:\\:\\$db\\.$#"
+			count: 7
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:closeDB\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:connectDB\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:deleteDB\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:selectAllCars\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:selectAllCars\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:selectDB\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:selectDB\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method Database\\:\\:updateDB\\(\\) has parameter \\$table with no type specified\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Property Database\\:\\:\\$conn has no type specified\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Undefined variable\\: \\$pwd$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Undefined variable\\: \\$user$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Variable \\$req might not be defined\\.$#"
+			count: 1
+			path: php/connexion.php
+
+		-
+			message: "#^Method DisplayInfo\\:\\:displayResult\\(\\) has parameter \\$results with no type specified\\.$#"
+			count: 1
+			path: php/displayInfo.php
+
+		-
+			message: "#^Function closeDB not found\\.$#"
+			count: 1
+			path: src/create-company.php
+
+		-
+			message: "#^Function connectDB not found\\.$#"
+			count: 1
+			path: src/create-company.php
+
+		-
+			message: "#^Function insertDB not found\\.$#"
+			count: 1
+			path: src/create-company.php
+
+		-
+			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, int given\\.$#"
+			count: 2
+			path: src/create-company.php
+
+		-
+			message: "#^Function closeDB not found\\.$#"
+			count: 1
+			path: src/create-folder.php
+
+		-
+			message: "#^Function connectDB not found\\.$#"
+			count: 1
+			path: src/create-folder.php
+
+		-
+			message: "#^Function insertDB not found\\.$#"
+			count: 1
+			path: src/create-folder.php
+
+		-
+			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, int given\\.$#"
+			count: 2
+			path: src/create-folder.php
+
+		-
+			message: "#^Function closeDB not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function connectDB not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function createClientFolder not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function displayClient not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function displayClientFolder not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function displayResult not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function insertDB not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function selectDB not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Function updateDB not found\\.$#"
+			count: 1
+			path: src/show-folder.php
+
+		-
+			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, int given\\.$#"
+			count: 2
+			path: src/show-folder.php
+

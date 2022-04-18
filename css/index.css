@@ -13,7 +13,7 @@ body {
   }
 
   folder:hover {
-    @apply scale-110 shadow-lg duration-300;
+    @apply shadow-lg duration-300;
   }
 
   .button-section {
@@ -25,7 +25,10 @@ body {
   }
 
   .text-input {
-    @apply mt-1 block w-full rounded-md border border-slate-300 bg-white px-3 py-2 placeholder-slate-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 sm:text-sm;
+    @apply mt-1 block w-full rounded-md border border-slate-100 bg-white px-3 py-2 placeholder-slate-400 focus:border-sky-600 focus:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-sky-600;
+  }
+  .label-text {
+    @apply text-lg text-slate-100 md:text-xl;
   }
 
   .button-send {
