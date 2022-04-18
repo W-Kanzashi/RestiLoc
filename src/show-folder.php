@@ -52,16 +52,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </nav>
 
-  <div class="flex flex-row p-5">
+  <div class="flex flex-col md:flex-row p-5 gap-10 md:gap-0">
 
-    <!-- Create client doc -->
+    <!-- Create client folder -->
     <section class="mt-20 mx-auto p-10 basis-1/3">
       <h1 class="text-2xl">Afficher le dossier d&apos;un client</h1>
       <div class="flex flex-col p-5 max-w-4xl h-96">
         <form
           action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
           method="post"
-          class="grid grid-cols-2 gap-5"
+          class="flex flex-col justify-center gap-5"
         >
           <label for="num_dossier" class="">
             <span>Numéro de dossier</span>

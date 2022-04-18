@@ -16,6 +16,10 @@ body {
     @apply scale-110 shadow-lg duration-300;
   }
 
+  .button-section {
+    @apply rounded-xl border-2 border-slate-800 p-10 hover:bg-slate-800 hover:text-slate-100 hover:shadow-2xl hover:duration-300;
+  }
+
   button.client {
     @apply rounded-lg border-2 border-slate-800 p-5;
   }

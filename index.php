@@ -30,20 +30,20 @@ error_reporting(E_ALL);
     <section
       class="flex h-96 max-w-full flex-row items-center justify-center gap-20"
     >
-      <div
-        class="rounded-xl border-2 border-slate-800 p-10 hover:scale-110 hover:shadow-lg hover:duration-300"
+      <button
+        class="button-section"
       >
         <a href="./src/create-folder.php">
           <h1 class="text-4xl font-semibold">Créer un client</h1>
         </a>
-      </div>
-      <div
-        class="rounded-xl border-2 border-slate-800 p-10 hover:scale-110 hover:shadow-lg hover:duration-300"
+      </button>
+      <button
+        class="button-section"
       >
         <a href="./src/show-folder.php">
           <h1 class="text-4xl font-semibold">Afficher un client</h1>
         </a>
-      </div>
+      </button>
     </section>
 
     <section class="flex flex-row items-center justify-center">
