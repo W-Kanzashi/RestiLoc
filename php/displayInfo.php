@@ -175,7 +175,11 @@ class DisplayInfo extends Database
 
   public function displayClientFolder(): void
   {
-    $this->data = $this->getClientData($_GET["id"]); ?>
+    $this->data = $this->getClientData($_GET["id"]);
+    $this->connectDB();
+    $rdv = $this->selectDB("rdv")[0];
+    $this->closeDB();
+    ?>
       <div class="flex flex-col gap-3">
         <h2 class="text-2xl font-bold">Dossier Client</h2>
         <div>
@@ -185,9 +189,10 @@ class DisplayInfo extends Database
           <h3>Date de création : <?php echo $this->data[
             "date_creation_dossier"
           ]; ?></h3>
-          <h3>Date de RDV : <?php echo $this->data[
-            "date_creation_dossier"
-          ]; ?></h3>
+          <h3>Date de RDV : <?php echo $rdv["date_rdv"]; ?></h3>
+          <h3>Prénom de l'expert : <?php echo $rdv["prenom_expert"]; ?></h3>
+          <h3>Nom du garage : <?php echo $rdv["nom_garage"]; ?></h3>
+          <h3>Adresse du garage : <?php echo $rdv["ville_garage"]; ?></h3>
           <h3>Disponibilité client : <?php echo $this->data[
             "indisponibilite"
           ]; ?></h3>

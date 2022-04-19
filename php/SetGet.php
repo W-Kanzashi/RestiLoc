@@ -5,6 +5,7 @@ class SetGet
   protected array $clientData = [];
   protected array $expertData = [];
   protected array $garageData = [];
+  protected array $meetingData = [];
 
   public function __construct()
   {
@@ -31,6 +32,13 @@ class SetGet
     }
   }
 
+  public function setMeetingData(array|null $meetingData)
+  {
+    if ($meetingData !== null) {
+      $this->meetingData = $meetingData;
+    }
+  }
+
   public function getClientData(int $id = -1): array
   {
     if ($id === -1) {
@@ -48,5 +56,10 @@ class SetGet
   public function getGarageData(): array
   {
     return $this->garageData;
+  }
+
+  public function getMeetingData(): array
+  {
+    return $this->meetingData;
   }
 }

@@ -15,6 +15,13 @@ class Database extends SetGet
     $this->password = $pwd;
   }
 
+  protected function displayArray(array $data): void
+  {
+    echo "<pre>";
+    var_dump($data);
+    echo "</pre>";
+  }
+
   public function connectDB(): void
   {
     $servername = "127.0.0.1";
@@ -134,6 +141,15 @@ class Database extends SetGet
         // Select the city of the garage and remove duplicate
         $sql =
           "SELECT DISTINCT id_garage, ville_garage FROM garage ORDER BY ville_garage ASC";
+        $sqlReady = true;
+      }
+
+      if ($table === "rdv") {
+        $id_dossier = $this->getClientData($_GET["id"])["id_dossier"];
+        $sql =
+          "SELECT expert.prenom_expert,garage.nom_garage,garage.ville_garage,garage.tel_garage,rdv.date_rdv FROM rdv JOIN expert ON expert.id_expert=rdv.id_expert JOIN garage on garage.id_garage=rdv.id_garage WHERE rdv.id_dossier='" .
+          $id_dossier .
+          "'";
         $sqlReady = true;
       }
 
