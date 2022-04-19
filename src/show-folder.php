@@ -10,7 +10,9 @@ session_start();
 include_once "../php/displayInfo.php";
 
 $displayInfo = new DisplayInfo();
-$displayInfo->setClientData($_SESSION["displayClient"]);
+isset($_SESSION["displayClient"])
+  ? $displayInfo->setClientData($_SESSION["displayClient"])
+  : null;
 
 $clientFolder = "false";
 

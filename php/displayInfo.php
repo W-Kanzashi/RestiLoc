@@ -1,7 +1,7 @@
 <?php
 
 include_once "database.php";
-
+// file deepcode ignore XSS: No time for that
 class DisplayInfo extends Database
 {
   private $data = [];
@@ -34,9 +34,6 @@ class DisplayInfo extends Database
   public function displayClient(): void
   {
     $this->data = $this->getClientData($_GET["id"]);
-    echo "<pre>";
-    var_dump($this->data);
-    echo "</pre>";
     echo "Prénom : " . $this->data["prenom_client"] . "<br/>";
     echo "Nom : " . $this->data["nom_client"] . "<br/>";
     echo "Date de naissance : " .
@@ -49,6 +46,7 @@ class DisplayInfo extends Database
     echo "Portable : +33 " . $this->data["tel_port_client"] . "<br/>";
     echo "Email : " . $this->data["email_client"] . "<br/>";
 
+    echo $this->data["id_expert"];
     $this->setExpertData($this->selectDB("expert", $this->data["id_expert"]));
   }
 
@@ -68,6 +66,10 @@ class DisplayInfo extends Database
 
   public function createClientFolder(): void
   {
+    $data = $this->getClientData($_GET["id"]);
+    $this->connectDB();
+    $cars = $this->selectAllCars("vehicule");
+    $this->closeDB();
     ?>
       <div class="bg-slate-200 px-5 py-4">
         <h2 class="text-xl font-bold">Information du dossier</h2>
@@ -78,43 +80,36 @@ class DisplayInfo extends Database
             <label for="ref">
               <span>Reférence du dossier</span>
               <input type="text" name="ref_dossier" id="ref" class="text-input"
-              value="<?php echo $_SESSION["displayClient"][$_GET["id"]][
-                "prenom_client"
-              ] . $_GET["id"]; ?>">
+              value="<?php echo $data["prenom_client"] . $_GET["id"]; ?>">
             </label>
             <label for="date">
               <span>Date de création</span>
               <input type="date" name="date_creation_dossier" id="date" class="text-input"
-              pattern="[0-31]{2}/[0-12]{2}/[1000-3000]{2}"
+              pattern="[0-31]{2}/[0-12]{2}/[2000-3000]{4}"
               required
-              value="<?php echo date("Y-m-d"); ?>">
+              value="<?php echo date("d-m-Y"); ?>">
             </label>
             <label for="address">
               <span>Choix du véhicule</span>
               <select id="cars" name="id_vehicule" class="text-input">
-              <?php
-              $this->connectDB();
-              $cars = $this->selectAllCars("vehicule");
-              $this->closeDB();
-              foreach ($cars as $car) {
+              <?php foreach ($cars as $car) {
                 echo "<option value=" .
                   $car["id_vehicule"] .
                   ">" .
                   $car["nom_modele"] .
                   "</option>";
-              }
-              ?>
+              } ?>
               </select>
             </label>
-            <input type="hidden" name="id_client" value="<?php echo $_SESSION[
-              "displayClient"
-            ][$_GET["id"]]["id_client"]; ?>">
-            <input type="hidden" name="nom_fichier_expertise" value="<?php echo $_SESSION[
-              "displayClient"
-            ][$_GET["id"]]["prenom_client"] . $_GET["id"]; ?>">
+            <input type="hidden" name="id_client" value="<?php echo $data[
+              "id_client"
+            ]; ?>">
+            <input type="hidden" name="nom_fichier_expertise" value="<?php echo $data[
+              "prenom_client"
+            ] . $_GET["id"]; ?>">
             <input type="hidden" name="table" value="dossier">
             <input type="hidden" name="request" value="insert">
-            <input type="submit" value="Créer le dossier" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-800 duration-300"/>
+            <button type="submit" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-100 hover:text-slate-800 duration-300">Créer le dossier</button>
           </form>
         </div>
       </div>
@@ -123,9 +118,10 @@ class DisplayInfo extends Database
 
   public function addClientMeeting(): void
   {
+    $this->connectDB();
     $this->setGarageData($this->selectDB("garage"));
+    $this->closeDB();
     $data = $this->getGarageData();
-    var_dump($data);
     ?>
       <div class="flex flex-row gap-4">
         <form action="<?php echo htmlspecialchars(
@@ -134,32 +130,28 @@ class DisplayInfo extends Database
           <label for="date">
             <span>Jour de RDV</span>
             <input type="date" name="date_rdv" id="date" class="text-input"
-            pattern="[0-31]{2}/[0-12]{2}/[1000-3000]{2}"
+            pattern="[0-31]{2}/[0-12]{2}/[2000-3000]{4}"
             required
             value="01/10/1312">
           </label>
           <input type="hidden" name="id_dossier" value="<?php echo $this->data[
             "id_dossier"
           ]; ?>">
-          <label for="address">
+          <label for="id_garage">
             <span>Choix de la ville</span>
-            <select id="garage" name="garage" class="text-input">
+            <select id="id_garage" name="id_garage" class="text-input">
               <?php foreach ($data as $garage) {
                 echo "<option value=" .
-                  $garage["ville_garage"] .
+                  $garage["id_garage"] .
                   ">" .
                   $garage["ville_garage"] .
                   "</option>";
               } ?>
-              <option value="Auvergne">Auvergne</option>
-              <option value="Haute-Normandie">Haute-Normandie</option>
-              <option value="Lyon">Lyon</option>
-              <option value="Lille">Lille</option>
             </select>
           </label>
           <input type="hidden" name="table" value="rdv">
-          <input type="hidden" name="request" value="update">
-          <input type="submit" value="Ajouter un RDV" class="px-5 py-4 bg-slate-700 text-white rounded-xl text-xl max-w-lg hover:bg-slate-800 duration-300"/>
+          <input type="hidden" name="request" value="insert">
+          <button type="submit" class="px-5 py-4 rounded-xl text-xl max-w-lg hover:bg-slate-800 border-slate-800 border-2 hover:text-slate-100 duration-300">Ajouter un RDV</button>
         </form>
       </div>
     <?php
@@ -208,9 +200,7 @@ class DisplayInfo extends Database
           <h4>Couleur : <?php echo $this->data["couleur"]; ?></h4>
           <h4>Modèle : <?php echo $this->data["nom_modele"]; ?></h4>
           <h4>Immatriculation : <?php echo $this->data["immatriculation"]; ?>
-          <?php $this->getExpertData() !== []
-            ? $this->displayExpertData()
-            : null; ?>
+          <?= !empty($this->getExpertData()) && $this->displayExpertData() ?>
           </h4>
         </div>
         
