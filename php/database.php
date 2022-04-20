@@ -71,7 +71,7 @@ class Database extends SetGet
           implode("', '", $val) .
           "', (SELECT id_expert FROM expert JOIN garage ON garage.ville_garage=expert.ville_expert WHERE garage.id_garage='" .
           $array["id_garage"] .
-          "'))";
+          "' LIMIT 1))";
       } else {
         $sql =
           "INSERT INTO $table (" .
@@ -140,7 +140,7 @@ class Database extends SetGet
       if ($table === "garage") {
         // Select the city of the garage and remove duplicate
         $sql =
-          "SELECT DISTINCT id_garage, ville_garage FROM garage ORDER BY ville_garage ASC";
+          "SELECT id_garage, ville_garage FROM garage ORDER BY ville_garage ASC";
         $sqlReady = true;
       }
 
@@ -149,6 +149,19 @@ class Database extends SetGet
         $sql =
           "SELECT expert.prenom_expert,garage.nom_garage,garage.ville_garage,garage.tel_garage,rdv.date_rdv FROM rdv JOIN expert ON expert.id_expert=rdv.id_expert JOIN garage on garage.id_garage=rdv.id_garage WHERE rdv.id_dossier='" .
           $id_dossier .
+          "' ORDER BY date_rdv DESC";
+        $sqlReady = true;
+      }
+
+      if ($table === "prestation_carosserie" || $table === "prestation_piece") {
+        $id_vehicule = $this->getClientData($_GET["id"])["id_vehicule"];
+        $sql =
+          "SELECT * FROM " .
+          $table .
+          " JOIN vehicule ON vehicule.id_vehicule=" .
+          $table .
+          ".id_vehicule WHERE vehicule.id_vehicule='" .
+          $id_vehicule .
           "'";
         $sqlReady = true;
       }

@@ -173,6 +173,47 @@ class DisplayInfo extends Database
     <?php
   }
 
+  private function displayMeetingData(): void
+  {
+    $this->connectDB();
+    $carosserie = $this->selectDB("prestation_carosserie");
+    $piece = $this->selectDB("prestation_piece");
+    $this->closeDB();
+    ?>
+      <h2 class="text-2xl font-semibold">Informations RDV</h2>
+      <h3 class="text-xl font-semibold">Prestation de carosserie</h3>
+      <section class="pl-5">
+        <?php foreach ($carosserie as $carosserie) {
+          echo "<h4>Description : " .
+            $carosserie["description_prestation"] .
+            "</h4>";
+          echo "<h4>Preuve :</h4><br/>";
+          echo "<img src='http://10.255.255.3:8090" .
+            $carosserie["chemin_photo"] .
+            $carosserie["nom_photo"] .
+            "' alt='" .
+            $carosserie["nom_photo"] .
+            "'>";
+        } ?>
+      </section>
+      <h3 class="text-xl font-semibold">Prestation de pièces</h3>
+      <section class="pl-5">
+        <?php foreach ($piece as $piece) {
+          echo "<h4>Description : " .
+            $piece["description_prestation"] .
+            "</h4>";
+          echo "<h4>Preuve :</h4><br/>";
+          echo "<img src='http://10.255.255.3:8090" .
+            $piece["chemin_photo"] .
+            $piece["nom_photo"] .
+            "' alt='" .
+            $piece["nom_photo"] .
+            "'>";
+        } ?>
+      </section>
+    <?php
+  }
+
   public function displayClientFolder(): void
   {
     $this->data = $this->getClientData($_GET["id"]);
@@ -211,6 +252,8 @@ class DisplayInfo extends Database
         
       </div>
 
-    <?php $this->addClientMeeting();
+    <?php
+    $this->addClientMeeting();
+    $this->displayMeetingData();
   }
 }

@@ -14,6 +14,10 @@ isset($_SESSION["displayClient"])
   ? $displayInfo->setClientData($_SESSION["displayClient"])
   : null;
 
+// echo "<pre>";
+// var_dump($displayInfo->getClientData());
+// echo "</pre>";
+
 $clientFolder = "false";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
