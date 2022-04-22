@@ -2,6 +2,21 @@
 
 include_once "database.php";
 // file deepcode ignore XSS: No time for that
+
+/**
+ * DisplayInfo class display all the information that depends on the client
+ * @property private $data: array
+ * @method public __construct()
+ * @method public displayResult(): void
+ * @method public displayClient(): void
+ * @method public displayCreateFolder(): void
+ * @method public displayClientFolder(): void
+ * @method public createClientFolder(): void
+ * @method public addClientMeeting(): void
+ * @method private displayExpertData(): void
+ * @method private displayMeetingData(): void
+ */
+
 class DisplayInfo extends Database
 {
   private $data = [];

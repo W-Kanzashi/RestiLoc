@@ -2,6 +2,19 @@
 
 include_once "SetGet.php";
 
+/**
+ * Database class to make all the databases requests
+ * @property private $username: string
+ * @property private $password: string
+ * @property private $conn
+ * @method public connectDB(): void
+ * @method public closeDB(): void
+ * @method public insertDB(string $table): void
+ * @method public selectDB(string $table, int $expert = null): array|null
+ * @method public updateDB(string $table): void
+ * @method protected selectAllCars(string $table): array|null
+ */
+
 class Database extends SetGet
 {
   private string $username = "";
@@ -13,13 +26,6 @@ class Database extends SetGet
     include_once "../db_connect.php";
     $this->username = $user;
     $this->password = $pwd;
-  }
-
-  protected function displayArray(array $data): void
-  {
-    echo "<pre>";
-    var_dump($data);
-    echo "</pre>";
   }
 
   public function connectDB(): void
@@ -210,13 +216,5 @@ class Database extends SetGet
       print $e->getMessage();
     }
     return null;
-  }
-
-  protected function deleteDB(int $id): void
-  {
-    $req = $this->conn->prepare("DELETE FROM users WHERE id = :id");
-    $req->execute([
-      "id" => $id,
-    ]);
   }
 }
