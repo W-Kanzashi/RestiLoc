@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 
 <?php
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ALL);
-
 session_start();
 
-require_once "../php/connexion.php";
+require_once "../php/displayInfo.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $db = connectDB();
-
-  insertDB($db, "client");
-
-  closeDB($db);
+  $info = new DisplayInfo();
+  $info->connectDB();
+  $info->insertDB("client");
+  $info->closeDB();
 }
 ?>
 
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
