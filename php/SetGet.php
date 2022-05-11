@@ -6,10 +6,10 @@
  * @property protected $expertData: array
  * @property protected $garageData: array
  * @property protected $mettingData: array
- * @method public setClientData(array|null $clientData): void
- * @method public setExpertData(array|null $expertData): void
- * @method public setGarageData(array|null $prestationData): void
- * @method public setMeetingData(array|null $vehiculeData): void
+ * @method public setClientData(?array $clientData): void
+ * @method public setExpertData(?array $expertData): void
+ * @method public setGarageData(?array $prestationData): void
+ * @method public setMeetingData(?array $vehiculeData): void
  * @method public getClientData(): array
  * @method public getExpertData(): array
  * @method public getGarageData(): array
@@ -29,10 +29,10 @@ class SetGet
 
   /**
    * Save the client data
-   * @param array|null $clientData
+   * @param ?array $clientData
    * @return void
    */
-  public function setClientData(array|null $clientData = []): void
+  public function setClientData(?array $clientData = []): void
   {
     if ($clientData !== null) {
       $this->clientData = $clientData;
@@ -41,10 +41,10 @@ class SetGet
 
   /**
    * Set the expert data
-   * @param array|null $expertData
+   * @param ?array $expertData
    * @return void
    */
-  public function setExpertData(array|null $expertData): void
+  public function setExpertData(?array $expertData): void
   {
     if ($expertData !== null) {
       $this->expertData = $expertData;
@@ -53,10 +53,10 @@ class SetGet
 
   /**
    * Set the garage data
-   * @param array|null $garageData
+   * @param ?array $garageData
    * @return void
    */
-  public function setGarageData(array|null $garageData): void
+  public function setGarageData(?array $garageData): void
   {
     if ($garageData !== null) {
       $this->garageData = $garageData;
@@ -65,10 +65,10 @@ class SetGet
 
   /**
    * Set the meeting data
-   * @param array|null $meetingData
+   * @param ?array $meetingData
    * @return void
    */
-  public function setMeetingData(array|null $meetingData): void
+  public function setMeetingData(?array $meetingData): void
   {
     if ($meetingData !== null) {
       $this->meetingData = $meetingData;

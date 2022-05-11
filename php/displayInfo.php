@@ -203,7 +203,7 @@ class DisplayInfo extends Database
             $carosserie["description_prestation"] .
             "</h4>";
           echo "<h4>Preuve :</h4><br/>";
-          echo "<img src='http://10.255.255.3:8090" .
+          echo "<img src='http://85.215.98.83/clark/clark_restiloc-app" .
             $carosserie["chemin_photo"] .
             $carosserie["nom_photo"] .
             "' alt='" .
@@ -218,7 +218,7 @@ class DisplayInfo extends Database
             $piece["description_prestation"] .
             "</h4>";
           echo "<h4>Preuve :</h4><br/>";
-          echo "<img src='http://10.255.255.3:8090" .
+          echo "<img src='http://85.215.98.83/clark/clark_restiloc-app" .
             $piece["chemin_photo"] .
             $piece["nom_photo"] .
             "' alt='" .

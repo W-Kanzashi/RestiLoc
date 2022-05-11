@@ -10,9 +10,9 @@ include_once "SetGet.php";
  * @method public connectDB(): void
  * @method public closeDB(): void
  * @method public insertDB(string $table): void
- * @method public selectDB(string $table, int $expert = null): array|null
+ * @method public selectDB(string $table, int $expert = null): ?array
  * @method public updateDB(string $table): void
- * @method protected selectAllCars(string $table): array|null
+ * @method protected selectAllCars(string $table): ?array
  */
 
 class Database extends SetGet
@@ -31,7 +31,8 @@ class Database extends SetGet
   public function connectDB(): void
   {
     $servername = "127.0.0.1";
-    $database = "restiloc";
+    $servername = "localhost";
+    $database = "clark";
 
     try {
       $this->conn = new PDO(
@@ -96,7 +97,7 @@ class Database extends SetGet
     }
   }
 
-  public function selectDB(string $table, int $expert = null): array|null
+  public function selectDB(string $table, int $expert = null): ?array
   {
     try {
       $key = array_keys($_POST);
@@ -203,7 +204,7 @@ class Database extends SetGet
     }
   }
 
-  protected function selectAllCars(string $table): array|null
+  protected function selectAllCars(string $table): ?array
   {
     try {
       $sql = "SELECT * FROM $table ORDER BY nom_modele ASC";
